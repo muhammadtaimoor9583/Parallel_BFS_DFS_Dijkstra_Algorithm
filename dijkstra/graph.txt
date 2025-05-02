@@ -1,0 +1,36 @@
+PARALLEL DIJKSTRA PERFORMANCE ANALYSIS
+============================
+
+Performance metrics for parallel Dijkstra implementation:
+
+Thread Count | Execution Time (s) | Speedup | Efficiency
+-------------|-------------------|---------|------------
+      1      |      0.000348     |  1.000  |    100.0%
+      2      |      0.000683     |  0.510  |    25.5%
+      3      |      0.000905     |  0.385  |    12.8%
+      4      |      0.001027     |  0.339  |    8.5%
+      5      |      0.001848     |  0.188  |    3.8%
+      6      |      0.001601     |  0.217  |    3.6%
+      7      |      0.002016     |  0.173  |    2.5%
+      8      |      0.002328     |  0.149  |    1.9%
+
+ANALYSIS:
+---------
+1. Execution Time: Shows how long the shortest path calculation takes with different numbers of threads.
+   Lower is better. Ideally, more threads should reduce execution time.
+
+2. Speedup: Measures how much faster the parallel version is compared to the sequential version.
+   Speedup = Time(1 thread) / Time(n threads)
+   Ideal speedup equals the number of threads (linear speedup).
+
+3. Efficiency: Shows how effectively the threads are being utilized.
+   Efficiency = Speedup / Number of threads
+   Ideal efficiency is 100%. Lower efficiency indicates overhead from thread management.
+
+OPTIMIZATION NOTES:
+------------------
+- The Dijkstra's algorithm has been parallelized using a priority-queue based approach
+- Work distribution is handled through message passing between threads
+- Dynamic load balancing is achieved by directing work to threads with less load
+- Thread synchronization is managed through mutex locks to prevent race conditions
+- Work stealing is implemented to improve load balancing
